@@ -16,7 +16,7 @@ const scale = 0.5;
 const baseMatchScore = 0.8;
 const lowConfidenceThreshold = 0.65;
 const verticalOffset = 0.15;
-const maxTemplates = 8;
+const maxTemplates = 4;
 
 let trackingLost = false;
 let trackingLostFrames = 0;
@@ -161,7 +161,7 @@ function CaptureFootTemplateFromUnity() {
     const gray = new cv.Mat();
     cv.cvtColor(newTemplate, gray, cv.COLOR_RGBA2GRAY);
     cv.GaussianBlur(gray, gray, new cv.Size(3, 3), 0);
-    cv.Canny(gray, gray, 50, 150); // 🆕 Edge-based shape extraction
+    // cv.Canny(gray, gray, 50, 150); // 🆕 Edge-based shape extraction
 
     const resized = new cv.Mat();
     cv.resize(gray, resized, new cv.Size(0, 0), scale, scale, cv.INTER_AREA);
@@ -257,7 +257,7 @@ function startFootDetectionLoop() {
 
         cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
         cv.GaussianBlur(gray, gray, new cv.Size(3, 3), 0);
-        cv.Canny(gray, gray, 50, 150); // 🆕 Edge detection on live frame
+        // cv.Canny(gray, gray, 50, 150); // 🆕 Edge detection on live frame
         cv.resize(gray, resized, new cv.Size(0, 0), scale, scale, cv.INTER_AREA);
 
         let bestMatch = { score: 0, pt: null, templateSize: null };
