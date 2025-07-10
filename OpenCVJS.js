@@ -55,8 +55,6 @@ async function EnableBox() {
 
 async function Recalibration() {
     EnableBox();
-    const footBox = document.getElementById("footHighlight");
-    footBox.style.display = "block";
     templates.forEach(t => {
         t.template.delete();
         t.resizedTemplate.delete();
@@ -134,7 +132,7 @@ async function setupCamera() {
         const screenHeight = window.innerHeight;
         footBox.style.width = `${templateSize}px`;
         footBox.style.height = `${templateSize}px`;
-        footBox.style.display = "block";
+        footBox.style.display = "none";
 
         footBox.style.left = `${(screenWidth - templateSize) / 2}px`;
         footBox.style.top = `${(screenHeight - templateSize) / 2 + screenHeight * verticalOffset}px`;
