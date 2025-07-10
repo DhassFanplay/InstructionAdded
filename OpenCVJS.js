@@ -65,7 +65,7 @@ async function Recalibration() {
     trackingLost = false;
     trackingLostFrames = 0;
     console.log("Templates cleared. Starting auto-capture...");
-    autoCaptureTemplates();
+    // autoCaptureTemplates();
 }
 
 async function setupCamera() {
@@ -213,8 +213,6 @@ function CaptureFootTemplateFromUnity() {
 
 function autoCaptureTemplates() {
         if (count >= maxTemplates) {
-            clearInterval(interval);
-            log("Auto-capture complete.");
             startFootDetectionLoop();
         } else {
             CaptureFootTemplateFromUnity();
