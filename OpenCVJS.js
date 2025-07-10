@@ -16,12 +16,13 @@ const scale = 0.5;
 const baseMatchScore = 0.8;
 const lowConfidenceThreshold = 0.65;
 const verticalOffset = 0.15;
-const maxTemplates = 4;
+const maxTemplates = 2;
 
 let trackingLost = false;
 let trackingLostFrames = 0;
 const trackingLostThreshold = 10;
 let showPreviews = false;
+    let count = 0;
 
 function RegisterUnityInstance(instance) {
     unityInstance = instance;
@@ -33,6 +34,7 @@ window.CaptureFootTemplateFromUnity = CaptureFootTemplateFromUnity;
 window.listCameras = listCameras;
 window.setupCamera = setupCamera;
 window.Recalibration = Recalibration;
+window.EnableBox = EnableBox;
 
 async function listCameras() {
     await StartFootDetection();
@@ -46,7 +48,13 @@ async function StartFootDetection() {
     await setupCamera();
 }
 
+async function EnableBox() {
+    const footBox = document.getElementById("footHighlight");
+    footBox.style.display = "block";
+}
+
 async function Recalibration() {
+    EnableBox();
     const footBox = document.getElementById("footHighlight");
     footBox.style.display = "block";
     templates.forEach(t => {
@@ -204,8 +212,6 @@ function CaptureFootTemplateFromUnity() {
 }
 
 function autoCaptureTemplates() {
-    let count = 0;
-    const interval = setInterval(() => {
         if (count >= maxTemplates) {
             clearInterval(interval);
             log("Auto-capture complete.");
@@ -214,7 +220,6 @@ function autoCaptureTemplates() {
             CaptureFootTemplateFromUnity();
             count++;
         }
-    }, 250);
 }
 
 function startFrameLoop() {
